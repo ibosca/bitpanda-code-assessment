@@ -1,8 +1,7 @@
 <?php
 
-namespace Tests\User\Infrastructure\Controller;
+namespace Tests\User\Infrastructure\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class UserGetEndpointTest extends TestCase
