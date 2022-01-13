@@ -1,9 +1,10 @@
 <?php
 
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 
+use App\Http\Controllers\Controller;
 use Src\User\Application\UserSearcher;
 
 class UserGetController extends Controller
