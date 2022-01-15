@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Src\Shared\Domain\Exception\BitpandaException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -36,6 +37,14 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        $this->renderable(function (BitpandaException $exception, $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'errorMessage' => $exception->description()
+                ], $exception->httpCode());
+            }
         });
     }
 }

@@ -9,6 +9,7 @@ use Src\Shared\Domain\Criteria\Criteria;
 use Src\Shared\Domain\Criteria\Filter\Filter;
 use Src\Shared\Domain\Criteria\Filter\FilterCollection;
 use Src\Shared\Domain\Exception\BadRequestException;
+use Src\Shared\Domain\Exception\NotFoundException;
 use Src\Shared\Domain\ValueObject\UserId;
 use Src\Shared\Infrastructure\Persistence\LaravelQueryBuilder\Criteria\LaravelQueryFromCriteriaBuilder;
 use Src\User\Domain\Aggregate\User;
@@ -29,6 +30,7 @@ class LaravelQueryBuilderUserRepository implements UserRepository
      * @param UserId $id
      * @return User
      * @throws BadRequestException
+     * @throws NotFoundException
      */
     public function findById(UserId $id): User
     {
@@ -42,7 +44,7 @@ class LaravelQueryBuilderUserRepository implements UserRepository
         $result = $query->get();
 
         if ($result->isEmpty()) {
-            throw new BadRequestException(['id' => $id->value()], "User not found!");
+            throw new NotFoundException(['id' => $id->value()], "User not found!");
         }
 
         $userDataList = $result->toArray();

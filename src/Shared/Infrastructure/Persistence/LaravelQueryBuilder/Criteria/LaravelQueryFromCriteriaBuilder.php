@@ -10,6 +10,7 @@ use RuntimeException;
 use Src\Shared\Domain\Criteria\Criteria;
 use Src\Shared\Domain\Criteria\Filter\Filter;
 use Src\Shared\Domain\Criteria\Filter\FilterCollection;
+use Src\Shared\Domain\Exception\BadRequestException;
 use Src\User\Domain\Aggregate\User;
 use Src\User\Domain\ValueObject\UserDetail;
 
@@ -82,7 +83,7 @@ class LaravelQueryFromCriteriaBuilder
             $databaseField = self::DOMAIN_FIELDS_TO_DATABASE_FIELDS[$aggregate][$filter->field()->value()];
 
             if (!$databaseField) {
-                throw new RuntimeException("Field was not found: {$filter->field()}");
+                throw new BadRequestException(null, "Field was not found: {$filter->field()}");
             }
 
             $whereClauses[] = [$databaseField, $filter->operator()->value(), $filter->value()->value()];
