@@ -68,4 +68,9 @@ class User
         return $this->updatedAt;
     }
 
+    public function isEditable(): bool
+    {
+        return (bool) $this->detail();
+    }
+
 }

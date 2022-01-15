@@ -24,8 +24,15 @@ class LaravelQueryFromCriteriaBuilder
 
     const DOMAIN_FIELDS_TO_DATABASE_FIELDS = [
         User::class => [
-            'isActive' => 'active',
-            'countryId' => 'citizenship_country_id'
+            'id' => 'users.id',
+            'email' => 'users.email',
+            'isActive' => 'users.active',
+            'createdAt' => 'users.created_at',
+            'updatedAt' => 'users.updated_at',
+            'countryId' => 'user_details.citizenship_country_id',
+            'firstName' => 'user_details.first_name',
+            'lastName' => 'user_details.last_name',
+            'phoneNumber' => 'user_details.phone_number',
         ]
     ];
 
@@ -34,6 +41,7 @@ class LaravelQueryFromCriteriaBuilder
         $tableName = $this->aggregateNameToDatabaseTableName($aggregate);
         $query = DB::table($tableName);
         $query = $this->joinDependantEntities($query, $aggregate);
+        $query = $this->addFieldsToSelect($query, $aggregate);
         $query = $this->addWhereClauses($query, $criteria->filters(), $aggregate);
 
         return $query;
@@ -48,13 +56,19 @@ class LaravelQueryFromCriteriaBuilder
             $dependantDatabaseTable = $this->aggregateNameToDatabaseTableName($dependantEntity);
 
             $query->leftJoin(
-                $dependantDatabaseTable,
+                "{$dependantDatabaseTable}",
                 "{$resourceTable}.id",
                 '=',
                 "{$dependantDatabaseTable}.{$relatedFieldInDependantEntity}"
             );
         }
 
+        return $query;
+    }
+
+    private function addFieldsToSelect(Builder $query, string $aggregate): Builder
+    {
+        $query->select(self::DOMAIN_FIELDS_TO_DATABASE_FIELDS[$aggregate]);
         return $query;
     }
 
