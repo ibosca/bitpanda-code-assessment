@@ -73,4 +73,9 @@ class User
         return (bool) $this->detail();
     }
 
+    public function isRemovable(): bool
+    {
+        return !(bool) $this->detail();
+    }
+
 }

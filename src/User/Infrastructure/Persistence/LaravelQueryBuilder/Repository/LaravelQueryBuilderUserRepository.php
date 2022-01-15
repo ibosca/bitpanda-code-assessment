@@ -83,5 +83,8 @@ class LaravelQueryBuilderUserRepository implements UserRepository
 
     public function remove(User $user): void
     {
+        DB::table('users')
+            ->where('id', '=', $user->id()->value())
+            ->delete();
     }
 }

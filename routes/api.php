@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Src\User\Infrastructure\Controller\UserDeleteController;
 use Src\User\Infrastructure\Controller\UserGetController;
 use Src\User\Infrastructure\Controller\UserPostController;
 
@@ -21,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/users', UserGetController::class);
-Route::post('/users/{userId}', UserPostController::class);
+Route::put('/users/{userId}', UserPostController::class);
+Route::delete('/users/{userId}', UserDeleteController::class);

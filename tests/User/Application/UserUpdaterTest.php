@@ -19,7 +19,7 @@ class UserUpdaterTest extends TestCase
     public function test_should_edit_user()
     {
 
-        $user = UserMother::editable();
+        $user = UserMother::withDetail();
         $updatedDetails = new UserDetail(
             new CountryId('12'),
             new UserDetailsFirstName('AA'),
@@ -53,7 +53,7 @@ class UserUpdaterTest extends TestCase
     public function test_should_not_edit_user()
     {
 
-        $user = UserMother::nonEditable();
+        $user = UserMother::withoutDetail();
         $updatedDetails = new UserDetail(
             new CountryId('12'),
             new UserDetailsFirstName('AA'),

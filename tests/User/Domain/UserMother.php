@@ -20,7 +20,7 @@ use Src\User\Domain\ValueObject\UserUpdatedAt;
 class UserMother
 {
 
-    public static function editable(): User
+    public static function withDetail(): User
     {
         return new User(
             new UserId('44'),
@@ -37,7 +37,7 @@ class UserMother
         );
     }
 
-    public static function nonEditable(): User
+    public static function withoutDetail(): User
     {
         return new User(
             new UserId('47'),
