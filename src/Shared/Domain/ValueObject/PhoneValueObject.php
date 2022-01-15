@@ -25,12 +25,8 @@ class PhoneValueObject extends StringValueObject
      */
     private function ensureIsValidPhone(string $value): void
     {
-        if (strlen($value) != 13) {
-            throw new BadRequestException(['phone' => $value, 'Phone length not valid!']);
-        }
-
-        if (str_starts_with($value, '00')) {
-            throw new BadRequestException(['phone' => $value, 'Phone invalid format!']);
+        if (strlen($value) < 8) {
+            throw new BadRequestException(['phone' => $value], 'Phone length not valid!');
         }
     }
 

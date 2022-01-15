@@ -6,7 +6,7 @@ namespace Src\User\Domain\Aggregate;
 
 use Src\Shared\Domain\ValueObject\UserId;
 use Src\User\Domain\ValueObject\UserCreatedAt;
-use Src\User\Domain\ValueObject\UserDetails;
+use Src\User\Domain\ValueObject\UserDetail;
 use Src\User\Domain\ValueObject\UserEmail;
 use Src\User\Domain\ValueObject\UserIsActive;
 use Src\User\Domain\ValueObject\UserUpdatedAt;
@@ -17,7 +17,7 @@ class User
     private UserId $id;
     private UserEmail $email;
     private UserIsActive $isActive;
-    private ?UserDetails $details;
+    private ?UserDetail $detail;
     private UserCreatedAt $createdAt;
     private UserUpdatedAt $updatedAt;
 
@@ -25,7 +25,7 @@ class User
         UserId $id,
         UserEmail $email,
         UserIsActive $isActive,
-        ?UserDetails $details,
+        ?UserDetail $detail,
         UserCreatedAt $createdAt,
         UserUpdatedAt $updatedAt
     )
@@ -33,7 +33,7 @@ class User
         $this->id = $id;
         $this->email = $email;
         $this->isActive = $isActive;
-        $this->details = $details;
+        $this->detail = $detail;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
     }
@@ -53,9 +53,9 @@ class User
         return $this->isActive;
     }
 
-    public function details(): ?UserDetails
+    public function detail(): ?UserDetail
     {
-        return $this->details;
+        return $this->detail;
     }
 
     public function createdAt(): UserCreatedAt

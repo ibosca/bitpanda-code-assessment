@@ -6,7 +6,7 @@ namespace Src\User\Domain\ValueObject;
 
 use Src\Shared\Domain\ValueObject\CountryId;
 
-class UserDetails
+class UserDetail
 {
 
     private CountryId $countryId;

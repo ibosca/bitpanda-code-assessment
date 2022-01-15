@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Src\User\Domain\Repository\UserRepository;
-use Src\User\Infrastructure\Repository\MysqlUserRepository;
+use Src\User\Infrastructure\Persistence\LaravelQueryBuilder\Repository\LaravelQueryBuilderUserRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      * @var array
      */
     public $bindings = [
-        UserRepository::class => MysqlUserRepository::class,
+        UserRepository::class => LaravelQueryBuilderUserRepository::class,
     ];
 
     /**
