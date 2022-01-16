@@ -4,7 +4,7 @@ namespace Tests\User\Infrastructure\Controller;
 
 use Tests\TestCase;
 
-class UserGetEndpointTest extends TestCase
+class UserGetControllerTest extends TestCase
 {
 
     public function test_users_endpoint_returns_a_success_response()
