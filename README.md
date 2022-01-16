@@ -68,7 +68,7 @@ The following request will update user with id 1.
 
 ### Create a user
 
-The following request will create a user with id 99.
+The following request will create a user with id 98.
 
 `PUT` http://localhost:8000/api/users/98
 
