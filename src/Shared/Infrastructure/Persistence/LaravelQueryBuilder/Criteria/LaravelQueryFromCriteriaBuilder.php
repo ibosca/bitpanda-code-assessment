@@ -83,7 +83,7 @@ class LaravelQueryFromCriteriaBuilder
             $databaseField = self::DOMAIN_FIELDS_TO_DATABASE_FIELDS[$aggregate][$filter->field()->value()];
 
             if (!$databaseField) {
-                throw new BadRequestException(null, "Field was not found: {$filter->field()}");
+                throw new BadRequestException([], "Field was not found: {$filter->field()}");
             }
 
             $whereClauses[] = [$databaseField, $filter->operator()->value(), $filter->value()->value()];

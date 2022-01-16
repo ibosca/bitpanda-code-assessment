@@ -13,6 +13,7 @@ interface UserRepository
 {
     public function findById(UserId $id): User;
     public function searchByCriteria(Criteria $criteria): UserCollection;
+    public function create(User $user): void;
     public function update(User $user): void;
     public function remove(User $user): void;
 

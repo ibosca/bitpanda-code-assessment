@@ -89,4 +89,28 @@ class LaravelQueryBuilderUserRepository implements UserRepository
             ->where('id', '=', $user->id()->value())
             ->delete();
     }
+
+    public function create(User $user): void
+    {
+        DB::table('users')->insert([
+            'id' => $user->id()->value(),
+            'email' => $user->email()->value(),
+            'active' => $user->isActive()->value(),
+            'created_at' => $user->createdAt()->value(),
+            'updated_at' => $user->updatedAt()->value(),
+        ]);
+
+        if (!$user->detail()) {
+            return;
+        }
+
+        DB::table('user_details')
+            ->insert([
+                'user_id' => $user->id()->value(),
+                'citizenship_country_id' => $user->detail()->countryId()->value(),
+                'first_name' => $user->detail()->firstName()->value(),
+                'last_name' => $user->detail()->lastName()->value(),
+                'phone_number' => $user->detail()->phoneNumber()->value(),
+            ]);
+    }
 }

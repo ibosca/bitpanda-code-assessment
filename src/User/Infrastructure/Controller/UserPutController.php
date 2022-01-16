@@ -8,20 +8,18 @@ use Illuminate\Http\Request;
 use Src\Shared\Domain\Exception\BadRequestException;
 use Src\Shared\Domain\ValueObject\CountryId;
 use Src\Shared\Domain\ValueObject\UserId;
-use Src\User\Application\UserCreator;
+use Src\User\Application\UserUpdater;
 use Src\User\Domain\ValueObject\UserDetail;
 use Src\User\Domain\ValueObject\UserDetailsFirstName;
 use Src\User\Domain\ValueObject\UserDetailsLastName;
 use Src\User\Domain\ValueObject\UserDetailsPhoneNumber;
-use Src\User\Domain\ValueObject\UserEmail;
-use Src\User\Domain\ValueObject\UserIsActive;
 
-class UserPostController extends Controller
+class UserPutController extends Controller
 {
 
 
     public function __construct(
-        private UserCreator $creator,
+        private UserUpdater $updater,
     ){}
 
     /**
@@ -31,16 +29,13 @@ class UserPostController extends Controller
      */
     public function __invoke(Request $request): JsonResponse
     {
+
         $this->validateRequest($request);
 
         $userId = new UserId($request->route('userId'));
+        $userDetail = $this->buildUserDetail($request->post());
 
-        $data = $request->post();
-        $userEmail = new UserEmail($data['email']);
-        $userIsActive = new UserIsActive($data['isActive']);
-        $userDetail = $this->buildUserDetail($data);
-
-        $this->creator->__invoke($userId, $userEmail, $userIsActive, $userDetail);
+        $this->updater->__invoke($userId, $userDetail);
 
         return response()
             ->json(null)
@@ -55,7 +50,7 @@ class UserPostController extends Controller
     private function validateRequest(Request $request): void
     {
         $data = $request->post();
-        $mandatoryFields = ["email", "isActive"];
+        $mandatoryFields = ["countryId", "firstName", "lastName", "phoneNumber"];
 
         foreach ($mandatoryFields as $mandatoryField) {
             if (!array_key_exists($mandatoryField, $data)) {
@@ -67,30 +62,16 @@ class UserPostController extends Controller
 
     /**
      * @param array $data
-     * @return UserDetail|null
+     * @return UserDetail
      * @throws BadRequestException
      */
-    private function buildUserDetail(array $data): ?UserDetail
+    private function buildUserDetail(array $data): UserDetail
     {
-        if (!array_key_exists('detail', $data)) {
-            return null;
-        }
-
-        $detailData = $data['detail'];
-
-        $necessaryFields = ['countryId', 'firstName', 'lastName', 'phoneNumber'];
-
-        foreach ($necessaryFields as $necessaryField) {
-            if (!array_key_exists($necessaryField, $detailData)) {
-                return null;
-            }
-        }
-
         return new UserDetail(
-            new CountryId($detailData["countryId"]),
-            new UserDetailsFirstName($detailData["firstName"]),
-            new UserDetailsLastName($detailData["lastName"]),
-            new UserDetailsPhoneNumber($detailData["phoneNumber"])
+            new CountryId($data["countryId"]),
+            new UserDetailsFirstName($data["firstName"]),
+            new UserDetailsLastName($data["lastName"]),
+            new UserDetailsPhoneNumber($data["phoneNumber"])
         );
     }
 
