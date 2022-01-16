@@ -70,7 +70,7 @@ The following request will update user with id 1.
 
 The following request will create a user with id 99.
 
-`PUT` http://localhost:8000/api/users/99
+`PUT` http://localhost:8000/api/users/98
 
 ```json
 {
@@ -164,3 +164,12 @@ Giving the identifiers from outside has some great benefits like:
 For sure, `UUID` would match much better this pattern.
 
 Last but not least, the error management is done using a framework middleware to catch domain exceptions and return the correct HTTP code and message.
+
+
+## Author
+
+### Isaac Boscà
+
+Website: [https://isaac.bosca.xyz/](https://isaac.bosca.xyz/)    
+LinkedIn: [https://www.linkedin.com/in/isaac-bosca/](https://www.linkedin.com/in/isaac-bosca/)    
+
