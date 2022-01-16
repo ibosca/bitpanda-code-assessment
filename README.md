@@ -19,7 +19,11 @@ Not needed if there is another database ready on the system.
 
 ### Installation
 
-Create a `.env` file from `.env.example`.
+Create a `.env` file from `.env.example`:
+
+```bash
+$ cp .env.example .env
+```
 
 Then run:
 
