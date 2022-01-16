@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\User\Infrastructure\Feature;
+namespace Tests\User\Infrastructure\Controller;
 
 use Tests\TestCase;
 
